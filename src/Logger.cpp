@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-#include "../include/Logger.hpp"
+#include "../include/Mach/Logger.hpp"
 #include <iomanip>
 #include <sstream>
 

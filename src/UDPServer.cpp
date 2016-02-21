@@ -20,8 +20,8 @@
  * THE SOFTWARE.
  */
 
-#include "../include/UDPServer.hpp"
-#include "../include/Exception.hpp"
+#include "../include/Mach/UDPServer.hpp"
+#include "../include/Mach/Exception.hpp"
 #include <iostream>
 
 

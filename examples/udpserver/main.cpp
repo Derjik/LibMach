@@ -22,7 +22,7 @@
 
 #include <iostream>
 #include "DemoUDPServer.hpp"
-#include <Exception.hpp>
+#include <Mach/Exception.hpp>
 
 using namespace std;
 using namespace Mach;

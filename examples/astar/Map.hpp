@@ -27,7 +27,7 @@
 #include <vector>	// std::vector
 #include <string>	// std::string
 #include <exception>	// std::exception
-#include <Point.hpp>	// Point
+#include <Mach/Point.hpp>	// Point
 
 
 using Mach::Point;

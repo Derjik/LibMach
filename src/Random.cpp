@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-#include "../include/Random.hpp"
+#include "../include/Mach/Random.hpp"
 
 
 namespace Mach

@@ -23,7 +23,7 @@
 #ifndef DEMOUDPSERVER_HPP_INCLUDED
 #define DEMOUDPSERVER_HPP_INCLUDED
 
-#include "../../include/UDPServer.hpp"
+#include <Mach/UDPServer.hpp>
 
 
 namespace Mach

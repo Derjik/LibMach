@@ -20,8 +20,8 @@
  * THE SOFTWARE.
  */
 
-#include "../include/UDPClient.hpp"
-#include "../include/Exception.hpp"
+#include "../include/Mach/UDPClient.hpp"
+#include "../include/Mach/Exception.hpp"
 #include <iostream>
 
 

@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-#include "../include/Point.hpp"
+#include "../include/Mach/Point.hpp"
 #include <sstream>
 
 

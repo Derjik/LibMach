@@ -23,7 +23,7 @@
 #ifndef ASTARGRAPH_HPP_INCLUDED
 #define ASTARGRAPH_HPP_INCLUDED
 
-#include "AStar.hpp"		// Base AStar template
+#include <Mach/AStar.hpp>	// Base AStar template
 #include "MapEditor.hpp"	// MapEditor
 #include <thread>		// std::this_thread, std::sleep_for
 #include <chrono>		// std::chrono
