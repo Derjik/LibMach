@@ -1,0 +1,156 @@
+/*
+ * Copyright (c) 2016 Julien "Derjik" Laurent <julien.laurent@engineer.com>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+#ifndef LOGGER_HPP_INCLUDED
+#define LOGGER_HPP_INCLUDED
+
+#include <string>
+#include <fstream>
+
+
+namespace Mach
+{
+
+/*
+ * Defines a basic logging priority, as found in many other logging facilities
+ */
+struct Priority
+{
+	/* Used as a threshold when deciding whether to log or not */
+	int level;
+
+	/* Will appear as [tag] at the beginning of log lines */
+	std::string tag;
+
+	/* Logging priorities must be compared using their respective integer
+	 * levels */
+	bool operator >= (Priority const & p)
+	{
+		return level >= p.level;
+	}
+};
+
+/*
+ * Allows use of << on streams capable of receiving an unsigned integer
+ */
+template <typename T> T & operator << (T & obj, Priority const & prio)
+{
+	obj << prio.tag;
+
+	return obj;
+}
+
+/* Default priorities for the Logger */
+extern struct Priority LOG_DEBUG;	/* Execution details */
+extern struct Priority LOG_INFO;	/* Notices worth reading */
+extern struct Priority LOG_WARN;	/* Safe but abnormal behaviors */
+extern struct Priority LOG_ERROR;	/* Fatal abnormal behaviors */
+
+/*
+ * Logging facility
+ *
+ * Takes a file path and a minimal priority in parameters, allowing to filter
+ * and output messages to the destination logfile.
+ */
+class Logger
+{
+	private:
+		/* Destination logfile */
+		std::ofstream _logFile;
+
+		/* Current minimum priority */
+		Priority _minimumPriority;
+
+		/* Are we beginning a new line ? */
+		bool _newLine;
+
+	protected:
+		/* Get a formatted [HOUR:MIN:SEC] timestamp */
+		static std::string formattedLogTime();
+
+		/* Insert the message prefix */
+		void prefix(Priority const);
+
+	public:
+		/* Internal logging level to be exposed to the user */
+		class Level
+		{
+			private:
+				/* Parent logger */
+				Logger * _logger;
+
+				/* Logging priority */
+				Priority _priority;
+
+			public:
+				/* Constructors & destructor */
+				Level(Logger * const, Priority const);
+				virtual ~Level();
+
+				/* Logging operator */
+				template <typename T>
+				Level & operator << (T const & object)
+				{
+					/* Check the Level's priority
+					 * before logging anything */
+					if(_priority
+						>= _logger->_minimumPriority)
+					{
+						/* Add the prefix */
+						_logger->prefix(_priority);
+
+						/* Log the message */
+						_logger->_logFile << object;
+					}
+
+					/* Return a reference to self (useful
+					 * for chained calls) */
+					return (*this);
+				}
+
+				Level & operator << (Level & (*f) (Level &));
+				friend Logger::Level & endl(Logger::Level &);
+		};
+
+		/* Constructors & destructor */
+		Logger(std::string const & pathToLogFile, Priority const);
+		virtual ~Logger();
+
+		/* Change verbosity */
+		void setVerbosity(Priority const);
+
+		/* Logging levels */
+		Level debug;
+		Level info;
+		Level warn;
+		Level error;
+
+		/* Our custom endl needs access to private members */
+		friend Logger::Level & endl(Logger::Level &);
+};
+
+/* Custom endl */
+Logger::Level & endl(Logger::Level & l);
+
+}
+
+#endif // LOGGER_HPP_INCLUDED
