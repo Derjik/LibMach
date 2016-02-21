@@ -20,8 +20,8 @@
  * THE SOFTWARE.
  */
 
-#include "../include/NetComponent.hpp"
-#include "../include/Exception.hpp"
+#include "../include/Mach/NetComponent.hpp"
+#include "../include/Mach/Exception.hpp"
 #include <sstream>
 
 
