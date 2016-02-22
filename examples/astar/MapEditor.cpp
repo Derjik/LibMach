@@ -61,15 +61,15 @@ void MapEditor::run()
 	{
 		clearResult();
 
-		// Path-finder initialization
+		/* Path-finder initialization */
 		AStarGraph<Map, Point> algorithm(_map, _start, _stop, distance, moveCost, terrainCost, near, (*this));
 		algorithm.setDelay(_delay);
 
-		// Task initialization
+		/* Task initialization */
 		packaged_task < vector<Point> (AStarGraph<Map, Point>) > pathFinder (&AStarGraph<Map, Point>::run);
 		_path = pathFinder.get_future();
 
-		// Thread initialization
+		/* Thread initialization */
 		_searchThread = thread(move(pathFinder), algorithm);
 	}
 	else
@@ -97,16 +97,16 @@ Direction MapEditor::computeDirection(Point const & src, Point const & dst)
 			d = DOWN_RIGHT;
 		else if(deltaY == 0)
 			d = RIGHT;
-		else // deltaY < 0
+		else /* deltaY < 0 */
 			d = UP_RIGHT;
 	}
-	else // deltaX < 0
+	else /* deltaX < 0 */
 	{
 		if(deltaY > 0)
 			d = DOWN_LEFT;
 		else if(deltaY == 0)
 			d = LEFT;
-		else // deltaY < 0
+		else /* deltaY < 0 */
 			d = UP_LEFT;
 	}
 

@@ -23,10 +23,10 @@
 #ifndef ASTARGRAPH_HPP_INCLUDED
 #define ASTARGRAPH_HPP_INCLUDED
 
-#include <Mach/AStar.hpp>	// Base AStar template
-#include "MapEditor.hpp"	// MapEditor
-#include <thread>		// std::this_thread, std::sleep_for
-#include <chrono>		// std::chrono
+#include <Mach/AStar.hpp>
+#include "MapEditor.hpp"
+#include <thread>
+#include <chrono>
 
 
 /*
@@ -87,7 +87,7 @@ run()
 
 	AStar<Map, Coord>::_openList.insert(std::pair<Coord, typename AStar<Map, Coord>::Node*>(startingNode->_position, startingNode));
 
-	// Iterate until a path is found OR the _openList becomes empty
+	/* Iterate until a path is found OR the _openList becomes empty */
 	while(!AStar<Map, Coord>::_openList.empty() && !destinationReached)
 	{
 		currentNode = AStar<Map, Coord>::bestOpenNode();
@@ -102,18 +102,20 @@ run()
 
 		neighbors = (*AStar<Map, Coord>::_near)(currentNode->_position);
 
-		// For each neighbor from the current node
+		/* For each neighbor from the current node */
 		for(Coord& neighbor : neighbors)
 		{
 			unsigned long tCost = (*AStar<Map, Coord>::_terrainCost)(AStar<Map, Coord>::_map, neighbor);
 
-			if(tCost == 0)		// If the node isn't walkable,
-				continue;	// skip it
+			/* If the node isn't walkable, skip it */
+			if(tCost == 0)
+				continue;
 
 			inClosedList = (AStar<Map, Coord>::_closedList.find(neighbor) != AStar<Map, Coord>::_closedList.end());
 
-			if(inClosedList)	// If the node is already in the closed list,
-				continue;	// skip it
+			/* If the node is already in the closed list, skip it */
+			if(inClosedList)
+				continue;
 
 			/* From now on we can assume the node is valid and traversable */
 

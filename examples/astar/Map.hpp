@@ -23,11 +23,11 @@
 #ifndef MAP_HPP_INCLUDED
 #define MAP_HPP_INCLUDED
 
-#include <array>	// std::array
-#include <vector>	// std::vector
-#include <string>	// std::string
-#include <exception>	// std::exception
-#include <Mach/Point.hpp>	// Point
+#include <array>
+#include <vector>
+#include <string>
+#include <exception>
+#include <Mach/Point.hpp>
 
 
 using Mach::Point;
@@ -115,7 +115,7 @@ class Map
 };
 
 /*
- * Classic distance, moveCost &cie implementations.
+ * Classic distance, moveCost &misc implementations.
  * Made for use with A*.
  */
 unsigned long distance(Point const & start, Point const & end);
