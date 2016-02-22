@@ -122,7 +122,7 @@ unsigned long distance(Point const & start, Point const & end)
 unsigned long moveCost(Point const & start, Point const & end)
 {
 	if(end.x != start.x && end.y != start.y)
-		return 14; // cheap sqrt(2)
+		return 14; /* cheap sqrt(2) */
 	else
 		return 10;
 }
@@ -140,6 +140,7 @@ vector<Point> near(Point const & p)
 				continue;
 			//if(i != p.y && j != p.x)
 				//continue;
+			/* Diagonal movements permitted */
 
 			v.push_back(Point(j, i));
 		}

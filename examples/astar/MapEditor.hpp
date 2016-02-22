@@ -23,13 +23,13 @@
 #ifndef MAPEDITOR_HPP_INCLUDED
 #define MAPEDITOR_HPP_INCLUDED
 
-#include <map>			// std::map
-#include <set>			// std::set
-#include <thread>		// std::thread
-#include <future>		// std::future
-#include <SFML/System.hpp>	// SFML core
-#include <SFML/Graphics.hpp>	// sf::RenderWindow...
-#include "Map.hpp"		// Map
+#include <map>
+#include <set>
+#include <thread>
+#include <future>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+#include "Map.hpp"
 
 /*
  * Drag flags:
