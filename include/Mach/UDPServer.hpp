@@ -64,6 +64,10 @@ class UDPServer : public NetComponent
 		/* Error & misc information logger */
 		Logger _log;
 
+		/* No copy, no assignation */
+		UDPServer(UDPServer const &);
+		UDPServer & operator = (UDPServer const &);
+
 	protected:
 		/* Try binding to the given addrinfo (or any if nullptr is given) */
 		void bindTo(addrinfo const *);
