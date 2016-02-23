@@ -158,7 +158,7 @@ void UDPServer::bindTo(addrinfo const * addr)
  * their alone in space and if they die we have to find it out then restart'em.
  * How? Dunno. Later.
  */
-void UDPServer::listen()
+void UDPServer::startListening()
 {
 	if(!_listening)
 	{

@@ -91,7 +91,7 @@ class UDPServer : public NetComponent
 		virtual ~UDPServer();
 
 		/* Start listening on all bound sockets */
-		void listen();
+		void startListening();
 		
 		/* Close bound sockets & stop listening */
 		void stopListening();

@@ -52,7 +52,7 @@ int main(void)
 	}
 
 	/* Start listening */
-	serv->listen();
+	serv->startListening();
 
 	do
 	{
