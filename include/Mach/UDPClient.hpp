@@ -48,8 +48,14 @@ class UDPClient : public NetComponent
 
 	public:
 		/* Constructors & destructor */
-		UDPClient(std::string const, unsigned short const);
+		UDPClient();
 		virtual ~UDPClient();
+
+		/* Connect to the given host:port */
+		void connectTo(std::string const, unsigned short const);
+
+		/* Disconnect from server */
+		void disconnect();
 
 		/* Send some bytes to the remote server */
 		void sendBytes(uint8_t const *, size_t const) const;

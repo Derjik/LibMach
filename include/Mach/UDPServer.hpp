@@ -64,6 +64,10 @@ class UDPServer : public NetComponent
 		/* Error & misc information logger */
 		Logger _log;
 
+		/* No copy, no assignation */
+		UDPServer(UDPServer const &);
+		UDPServer & operator = (UDPServer const &);
+
 	protected:
 		/* Try binding to the given addrinfo (or any if nullptr is given) */
 		void bindTo(addrinfo const *);
@@ -87,7 +91,7 @@ class UDPServer : public NetComponent
 		virtual ~UDPServer();
 
 		/* Start listening on all bound sockets */
-		void listen();
+		void startListening();
 		
 		/* Close bound sockets & stop listening */
 		void stopListening();

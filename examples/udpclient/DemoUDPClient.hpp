@@ -40,7 +40,7 @@ class DemoUDPClient : public UDPClient
 {
 	public:
 		/* Constructors & destructor */
-		DemoUDPClient(std::string const, unsigned short const);
+		DemoUDPClient();
 		virtual ~DemoUDPClient();
 
 		/* Begin a chat sequence with the remote server */

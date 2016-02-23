@@ -101,9 +101,7 @@ void DemoUDPClient::sendIndexes(unsigned const number,
 /*
  * Usual constructor, forwarding parameters to the mother class
  */
-DemoUDPClient::DemoUDPClient(string const host,
-		unsigned short const port) :
-	UDPClient(host, port)
+DemoUDPClient::DemoUDPClient() : UDPClient()
 {}
 
 /*
