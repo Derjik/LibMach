@@ -36,10 +36,27 @@ using namespace std;
  * host and port describe the remote server information (thus, port shall be
  * != 0 and host should be a VALID FQDN or IP address)
  */
-UDPClient::UDPClient(string const host, unsigned short const port) : _socket(-1)
+UDPClient::UDPClient() : _socket(-1)
+{}
+
+/*
+ * Properly close the socket before deleting the UDPClient instance
+ */
+UDPClient::~UDPClient()
+{
+	disconnect();
+}
+
+/*
+ * Try connecting to the given host:port (Exceptions are thrown on errors)
+ */
+void UDPClient::connectTo(string const host, unsigned short const port)
 {
 	int getaddrinfoError(0), connectError(0);
 	addrinfo hints, *remote(nullptr);
+
+	if(_socket != -1)
+		throw Exception("UDPClient is already connected!");
 
 	memset(&hints, 0, sizeof(hints));
 
@@ -75,11 +92,15 @@ UDPClient::UDPClient(string const host, unsigned short const port) : _socket(-1)
 }
 
 /*
- * Properly close the socket before deleting the UDPClient instance
+ * Disconnect from the current server (if any)
  */
-UDPClient::~UDPClient()
+void UDPClient::disconnect()
 {
-	closeSocket(_socket);
+	if(_socket != -1)
+	{
+		closeSocket(_socket);
+		_socket = -1;
+	}
 }
 
 /*

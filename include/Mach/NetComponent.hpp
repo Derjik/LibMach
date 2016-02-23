@@ -53,7 +53,7 @@
 #include <winsock2.h>
 #include <Ws2tcpip.h>
 #include <Time.h>
-#include <stdint.h>
+#include <cinttypes>
 #endif
 
 

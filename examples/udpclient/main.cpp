@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 	#endif
 
 	/* Our demonstration client */
-	DemoUDPClient * client(nullptr);
+	DemoUDPClient client;
 
 	/* Check command-line arguments */
 	if(argc != 4 && argc != 3 && argc != 5)
@@ -54,26 +54,24 @@ int main(int argc, char* argv[])
 	{
 		/* Try binding the client to the remote server using the hints
 		 * given from command-line */
-		client = new DemoUDPClient(argv[1], stoi(argv[2]));
+		client.connectTo(argv[1], stoi(argv[2]));
 
 		/* Act depending on the number of arguments:
 		 * 3 arguments means "let's chat with server <IP>:<port>",
 		 * while 5 arguments means "let's send <number> bytes set to
 		 * <0xbyte> to server <IP>:<port>" */
 		if(argc == 3)
-			client->chat();
+			client.chat();
 		else if(argc == 4)
-			client->sendIndexes(stoi(argv[3]), 10);
+			client.sendIndexes(stoi(argv[3]), 10);
 		else if(argc == 5)
-			client->sendPattern(stoi(argv[3], nullptr, 16),
+			client.sendPattern(stoi(argv[3], nullptr, 16),
 					stoi(argv[4]));
 	}
 	catch(Exception e)
 	{
 		cerr << e.message() << endl;
 	}
-
-	delete client;
 
 	#if defined(_WIN32) || defined(_WIN64)
 		UDPClient::stopWSA();
