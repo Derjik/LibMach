@@ -20,10 +20,10 @@
  * THE SOFTWARE.
  */
 
-#include "DemoUDPClient.hpp"
-#include <Mach/Exception.hpp>
 #include <iostream>
 #include <string>
+#include <Mach/Exception.hpp>
+#include "DemoUDPClient.hpp"
 
 using namespace std;
 using namespace Mach;
@@ -31,9 +31,7 @@ using namespace Mach;
 
 int main(int argc, char* argv[])
 {
-	#if defined(_WIN32) || defined(_WIN64)
-		UDPClient::startWSA();
-	#endif
+	UDPClient::startWSA();
 
 	/* Our demonstration client */
 	DemoUDPClient client;
@@ -67,15 +65,17 @@ int main(int argc, char* argv[])
 		else if(argc == 5)
 			client.sendPattern(stoi(argv[3], nullptr, 16),
 					stoi(argv[4]));
+
+		/* Disconnect from server (=close socket) */
+		client.disconnect();
 	}
 	catch(Exception e)
 	{
 		cerr << e.message() << endl;
+		exit(-1);
 	}
 
-	#if defined(_WIN32) || defined(_WIN64)
-		UDPClient::stopWSA();
-	#endif
+	UDPClient::stopWSA();
 
 	return 0;
 }
