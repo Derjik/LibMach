@@ -11,7 +11,7 @@ and with the need for a simple, yet custom UDP sockets wrapper in C++.
 
 * UDP multithreaded server (IPv4 + IPv6)
 * UDP client
-* Generic A* algorithm (shipped as a class template)
+* Generic A\* algorithm (shipped as a class template)
 * Logging facility
 * Exceptions
 * Random numbers generation
@@ -37,3 +37,31 @@ keep the tree as clean as possible for the moment.
 I'm currently planning to add some Doxygen documentation but the class headers,
 along with the code comments should be a good starter for anyone wishing to work
 with this code.
+
+### AStar GUI
+
+The SFML `Mach::AStar` demonstration GUI has some keyboard & mouse controls
+which are explained here:
+
+**Drawing & dragging**
+
+You can drag the starting (green tile) and ending (red tile) points across the
+map simply by maintaining a left-click on them and moving around.
+You can start drawing some obstacles by left-clicking on an empty point
+(colorde in dark-gray), then maintaining the click and moving. The same process
+goes for removing obstacles, by clicking on an occupied point this time.
+
+**Setting the speed**
+Progress speed can be increased by pressing the <kbd>+</kbd> key and decreased
+by pressing <kbd>-</kbd>.
+
+**Running, wiping and cleaning**
+<kbd>R</kbd> starts the simulation. Once finished, the open, closed and path
+lists can be wiped using the <kbd>W</kbd> key. Finally, obstacles can be cleared
+with the <kbd>C</kbd> key.
+
+**Saving & loading**
+The current state of the map (obstacles, start & end points) can be saved by
+pressing the <kbd>S</kbd> key, resulting in a map.bin file in the execution
+path.
+You can then load the map later by pressing <kbd>L</kbd>.
