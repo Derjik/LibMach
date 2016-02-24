@@ -21,8 +21,8 @@
  */
 
 #include <iostream>
-#include "DemoUDPServer.hpp"
 #include <Mach/Exception.hpp>
+#include "DemoUDPServer.hpp"
 
 using namespace std;
 using namespace Mach;
@@ -30,11 +30,7 @@ using namespace Mach;
 
 int main(void)
 {
-	cout << "LibMach's UDPServer Test is running..." << endl;
-
-    #if defined(_WIN32) || defined(_WIN64)
         UDPServer::startWSA();
-    #endif
 
 	/* Menu choice */
 	int choice(0);
@@ -49,6 +45,7 @@ int main(void)
 	catch(Exception e)
 	{
 		cerr << e.message() << endl;
+		exit(-1);
 	}
 
 	/* Start listening */
@@ -97,17 +94,13 @@ int main(void)
 		}
 	} while (choice != 0);
 
-		cout
-		<< "RX: " << serv->packets() << " p ; E: " << serv->errors()
-		<< endl;
+	cout
+	<< "RX: " << serv->packets() << " p ; E: " << serv->errors()
+	<< endl;
 
 	delete serv;
 
-    #if defined(_WIN32) || defined(_WIN64)
         UDPServer::stopWSA();
-    #endif
-
-	cout << "The end! Thxbye..." << endl;
 
 	return 0;
 }
