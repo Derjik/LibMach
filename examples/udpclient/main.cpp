@@ -67,6 +67,9 @@ int main(int argc, char* argv[])
 		else if(argc == 5)
 			client.sendPattern(stoi(argv[3], nullptr, 16),
 					stoi(argv[4]));
+
+		/* Disconnect from server (=close socket) */
+		client.disconnect();
 	}
 	catch(Exception e)
 	{
