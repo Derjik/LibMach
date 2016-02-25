@@ -52,15 +52,18 @@ You can start drawing some obstacles by left-clicking on an empty point
 goes for removing obstacles, by clicking on an occupied point this time.
 
 **Setting the speed**
+
 Progress speed can be increased by pressing the <kbd>+</kbd> key and decreased
 by pressing <kbd>-</kbd>.
 
 **Running, wiping and cleaning**
+
 <kbd>R</kbd> starts the simulation. Once finished, the open, closed and path
 lists can be wiped using the <kbd>W</kbd> key. Finally, obstacles can be cleared
 with the <kbd>C</kbd> key.
 
 **Saving & loading**
+
 The current state of the map (obstacles, start & end points) can be saved by
 pressing the <kbd>S</kbd> key, resulting in a map.bin file in the execution
 path.
