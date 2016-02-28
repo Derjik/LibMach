@@ -64,10 +64,6 @@ class UDPServer : public NetComponent
 		/* Error & misc information logger */
 		Logger _log;
 
-		/* No copy, no assignation */
-		UDPServer(UDPServer const &);
-		UDPServer & operator = (UDPServer const &);
-
 	protected:
 		/* Try binding to the given addrinfo (or any if nullptr is given) */
 		void bindTo(addrinfo const *);
@@ -89,6 +85,10 @@ class UDPServer : public NetComponent
 				std::string const logPath = "UDPServer.log",
 				Priority const prio = LOG_ERROR);
 		virtual ~UDPServer();
+
+		/* No copy, no assignation */
+		UDPServer(UDPServer const &) = delete;
+		UDPServer & operator = (UDPServer const &) = delete;
 
 		/* Start listening on all bound sockets */
 		void startListening();
