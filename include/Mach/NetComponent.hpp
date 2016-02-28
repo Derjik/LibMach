@@ -56,6 +56,9 @@
 #include <cinttypes>
 #endif
 
+#include <limits.h>
+#include <stdint.h>
+
 
 namespace Mach
 {
@@ -94,6 +97,19 @@ class NetComponent
 		static void startWSA();
 		static void stopWSA();
 };
+
+enum : uint32_t
+{
+	LITTLE_ENDIAN = 0x03020100ul,
+	BIG_ENDIAN = 0x00010203ul,
+	UNKNOWN_ENDIAN = 0xFFFFFFFFul
+};
+
+static const union
+{
+	unsigned char bytes[4];
+	uint32_t value;
+} HOST_ORDER = {{0, 1, 2, 3}};
 
 }
 
