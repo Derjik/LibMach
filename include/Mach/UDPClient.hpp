@@ -51,6 +51,10 @@ class UDPClient : public NetComponent
 		UDPClient();
 		virtual ~UDPClient();
 
+		/* Copy & assignation are forbidden */
+		UDPClient(UDPClient const &) = delete;
+		UDPClient & operator = (UDPClient const &) = delete;
+
 		/* Connect to the given host:port */
 		void connectTo(std::string const, unsigned short const);
 

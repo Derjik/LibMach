@@ -49,8 +49,6 @@ class Point
 		/* Constructors & destructor */
 		explicit Point(int const x = 0, int const y = 0) : x(x), y(y)
 		{}
-		Point(Point const & p) : x(p.x), y(p.y)
-		{}
 
 		virtual ~Point()
 		{}

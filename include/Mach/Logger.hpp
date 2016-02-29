@@ -135,6 +135,10 @@ class Logger
 		Logger(std::string const & pathToLogFile, Priority const);
 		virtual ~Logger();
 
+		/* Copy & assignation are forbidden */
+		Logger(Logger const &) = delete;
+		Logger & operator = (Logger const &) = delete;
+
 		/* Change verbosity */
 		void setVerbosity(Priority const);
 
