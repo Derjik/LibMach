@@ -86,7 +86,7 @@ class UDPServer : public NetComponent
 				Priority const prio = LOG_ERROR);
 		virtual ~UDPServer();
 
-		/* No copy, no assignation */
+		/* Copy & assignation are forbidden */
 		UDPServer(UDPServer const &) = delete;
 		UDPServer & operator = (UDPServer const &) = delete;
 

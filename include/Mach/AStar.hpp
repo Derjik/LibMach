@@ -42,10 +42,11 @@ template
 <typename Map, typename Coord>
 class AStar
 {
-	typedef unsigned long (*distanceFunction) (Coord const &, Coord const &);
-	typedef unsigned long (*moveCostFunction) (Coord const &, Coord const &);
-	typedef unsigned long (*terrainCostFunction) (Map const &, Coord const &);		
-	typedef std::vector<Coord> (*nearFunction) (Coord const &);			
+	public:
+		typedef unsigned long (*distanceFunction) (Coord const &, Coord const &);
+		typedef unsigned long (*moveCostFunction) (Coord const &, Coord const &);
+		typedef unsigned long (*terrainCostFunction) (Map const &, Coord const &);
+		typedef std::vector<Coord> (*nearFunction) (Coord const &);
 
 	protected:
 		/* Graph node metadata, used while processing the path */
