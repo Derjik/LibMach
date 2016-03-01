@@ -34,6 +34,8 @@ using namespace std;
 /* WSA flag */
 bool NetComponent::_wsaEnabled(false);
 
+htonllImpl NetComponent::htonll = setHtonll();
+ntohllImpl NetComponent::ntohll = setNtohll();
 /*
  * Returns the last error issued by a network-related system call on Windows
  * or Linux
@@ -229,6 +231,72 @@ void NetComponent::stopWSA()
 	if(_wsaEnabled)
 		WSACleanup();
 #endif
+}
+
+unsigned htonllBigEndian(uint8_t * dst, uint64_t const & src)
+{
+	return 0;
+}
+
+unsigned htonllLittleEndian(uint8_t * dst, uint64_t const & src)
+{
+	return 0;
+}
+
+unsigned htonllUnknownEndian(uint8_t * dst, uint64_t const & src)
+{
+	return 0;
+}
+
+unsigned ntohllBigEndian(uint64_t & dst, uint8_t const * src)
+{
+	return 0;
+}
+
+unsigned ntohllLittleEndian(uint64_t & dst, uint8_t const * src)
+{
+	return 0;
+}
+
+unsigned ntohllUnknownEndian(uint64_t & dst, uint8_t const * src)
+{
+	return 0;
+}
+
+htonllImpl setHtonll()
+{
+	switch(HOST_ORDER.value)
+	{
+		case LITTLE_ENDIAN:
+			return htonllLittleEndian;
+		break;
+
+		case BIG_ENDIAN:
+			return htonllBigEndian;
+		break;
+
+		default:
+			return htonllUnknownEndian;
+		break;
+	}
+}
+
+ntohllImpl setNtohll()
+{
+	switch(HOST_ORDER.value)
+	{
+		case LITTLE_ENDIAN:
+			return ntohllLittleEndian;
+		break;
+
+		case BIG_ENDIAN:
+			return ntohllBigEndian;
+		break;
+
+		default:
+			return ntohllUnknownEndian;
+		break;
+	}
 }
 
 }

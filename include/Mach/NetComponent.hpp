@@ -63,6 +63,9 @@
 namespace Mach
 {
 
+typedef unsigned (*htonllImpl) (uint8_t*, uint64_t const &);
+typedef unsigned (*ntohllImpl) (uint64_t&, uint8_t const *);
+
 /*
  * Network component
  *
@@ -96,13 +99,14 @@ class NetComponent
 		/* Windows Socket API init and cleanup methods */
 		static void startWSA();
 		static void stopWSA();
+		static htonllImpl htonll;
+		static ntohllImpl ntohll;
 };
 
 enum : uint32_t
 {
 	LITTLE_ENDIAN = 0x03020100ul,
-	BIG_ENDIAN = 0x00010203ul,
-	UNKNOWN_ENDIAN = 0xFFFFFFFFul
+	BIG_ENDIAN = 0x00010203ul
 };
 
 static const union
@@ -110,6 +114,18 @@ static const union
 	unsigned char bytes[4];
 	uint32_t value;
 } HOST_ORDER = {{0, 1, 2, 3}};
+
+unsigned htonllBigEndian(uint8_t*, uint64_t const &);
+unsigned htonllLittleEndian(uint8_t*, uint64_t const &);
+unsigned htonllUnknownEndian(uint8_t*, uint64_t const &);
+
+unsigned ntohllBigEndian(uint64_t&, uint8_t const *);
+unsigned ntohllLittleEndian(uint64_t&, uint8_t const *);
+unsigned ntohllUnknownEndian(uint64_t&, uint8_t const *);
+
+htonllImpl setHtonll();
+ntohllImpl setNtohll();
+
 
 }
 
