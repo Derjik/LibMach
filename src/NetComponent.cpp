@@ -233,33 +233,57 @@ void NetComponent::stopWSA()
 #endif
 }
 
-unsigned htonllBigEndian(uint8_t * dst, uint64_t const & src)
+uint64_t htonllBigEndian(uint64_t const & src)
 {
+	return src;
+}
+
+uint64_t htonllLittleEndian(uint64_t const & src)
+{
+	uint8_t* ptr((uint8_t*)(&src));
+
+	return
+		(uint64_t)(
+		(ptr[0] << 56) |
+		(ptr[1] << 48) |
+		(ptr[2] << 40) |
+		(ptr[3] << 32) |
+		(ptr[4] << 24) |
+		(ptr[5] << 16) |
+		(ptr[6] << 8)  |
+		(ptr[7]));
+}
+
+uint64_t htonllUnknownEndian(uint64_t const & src)
+{
+	throw Exception("Unsupported endianness detected!");
 	return 0;
 }
 
-unsigned htonllLittleEndian(uint8_t * dst, uint64_t const & src)
+uint64_t ntohllBigEndian(uint64_t const & src)
 {
-	return 0;
+	return src;
 }
 
-unsigned htonllUnknownEndian(uint8_t * dst, uint64_t const & src)
+uint64_t ntohllLittleEndian(uint64_t const & src)
 {
-	return 0;
+	uint8_t* ptr((uint8_t*)(&src));
+
+	return
+		(uint64_t)(
+		(ptr[0] << 56) |
+		(ptr[1] << 48) |
+		(ptr[2] << 40) |
+		(ptr[3] << 32) |
+		(ptr[4] << 24) |
+		(ptr[5] << 16) |
+		(ptr[6] << 8)  |
+		(ptr[7]));
 }
 
-unsigned ntohllBigEndian(uint64_t & dst, uint8_t const * src)
+uint64_t ntohllUnknownEndian(uint64_t const & src)
 {
-	return 0;
-}
-
-unsigned ntohllLittleEndian(uint64_t & dst, uint8_t const * src)
-{
-	return 0;
-}
-
-unsigned ntohllUnknownEndian(uint64_t & dst, uint8_t const * src)
-{
+	throw Exception("Unsupported endianness detected!");
 	return 0;
 }
 

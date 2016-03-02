@@ -63,8 +63,8 @@
 namespace Mach
 {
 
-typedef unsigned (*htonllImpl) (uint8_t*, uint64_t const &);
-typedef unsigned (*ntohllImpl) (uint64_t&, uint8_t const *);
+typedef uint64_t (*htonllImpl) (uint64_t const &);
+typedef uint64_t (*ntohllImpl) (uint64_t const &);
 
 /*
  * Network component
@@ -115,13 +115,13 @@ static const union
 	uint32_t value;
 } HOST_ORDER = {{0, 1, 2, 3}};
 
-unsigned htonllBigEndian(uint8_t*, uint64_t const &);
-unsigned htonllLittleEndian(uint8_t*, uint64_t const &);
-unsigned htonllUnknownEndian(uint8_t*, uint64_t const &);
+uint64_t htonllBigEndian(uint64_t const &);
+uint64_t htonllLittleEndian(uint64_t const &);
+uint64_t htonllUnknownEndian(uint64_t const &);
 
-unsigned ntohllBigEndian(uint64_t&, uint8_t const *);
-unsigned ntohllLittleEndian(uint64_t&, uint8_t const *);
-unsigned ntohllUnknownEndian(uint64_t&, uint8_t const *);
+uint64_t ntohllBigEndian(uint64_t const &);
+uint64_t ntohllLittleEndian(uint64_t const &);
+uint64_t ntohllUnknownEndian(uint64_t const &);
 
 htonllImpl setHtonll();
 ntohllImpl setNtohll();
