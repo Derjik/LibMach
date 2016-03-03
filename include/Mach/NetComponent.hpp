@@ -99,9 +99,10 @@ class NetComponent
 		/* Windows Socket API init and cleanup methods */
 		static void startWSA();
 		static void stopWSA();
-		static htonllImpl htonll;
-		static ntohllImpl ntohll;
 };
+
+extern htonllImpl htonll;
+extern ntohllImpl ntohll;
 
 enum : uint32_t
 {

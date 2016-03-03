@@ -34,8 +34,8 @@ using namespace std;
 /* WSA flag */
 bool NetComponent::_wsaEnabled(false);
 
-htonllImpl NetComponent::htonll = setHtonll();
-ntohllImpl NetComponent::ntohll = setNtohll();
+htonllImpl htonll = setHtonll();
+ntohllImpl ntohll = setNtohll();
 /*
  * Returns the last error issued by a network-related system call on Windows
  * or Linux
