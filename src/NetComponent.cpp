@@ -31,11 +31,41 @@ namespace Mach
 using namespace std;
 
 
+/* Endianness detection constants */
+enum : uint32_t
+{
+	LITTLE_ENDIAN = 0x03020100ul,
+	BIG_ENDIAN = 0x00010203ul
+};
+
+/* Endianness test based on an union */
+static const union
+{
+	unsigned char bytes[4];
+	uint32_t value;
+} HOST_ORDER = {{0, 1, 2, 3}};
+
+/*
+ * These functions set effective implementations for the htonll and ntohll
+ * functions
+ */
+endianness setEndianness();
+
 /* WSA flag */
 bool NetComponent::_wsaEnabled(false);
 
-htonllImpl htonll = setHtonll();
-ntohllImpl ntohll = setNtohll();
+/*
+ * Sets the correct host to network long long and network to host long long 
+ * implementations
+ */
+endianness htonll = setEndianness();
+endianness ntohll = setEndianness();
+
+/* Various implementations of htonll and ntohll */
+uint64_t same(uint64_t const &);
+uint64_t reverse(uint64_t const &);
+uint64_t unknown(uint64_t const &);
+
 /*
  * Returns the last error issued by a network-related system call on Windows
  * or Linux
@@ -233,12 +263,12 @@ void NetComponent::stopWSA()
 #endif
 }
 
-uint64_t htonllBigEndian(uint64_t const & src)
+uint64_t same(uint64_t const & src)
 {
 	return src;
 }
 
-uint64_t htonllLittleEndian(uint64_t const & src)
+uint64_t reverse(uint64_t const & src)
 {
 	uint8_t* ptr((uint8_t*)(&src));
 
@@ -254,71 +284,26 @@ uint64_t htonllLittleEndian(uint64_t const & src)
 		(ptr[7]));
 }
 
-uint64_t htonllUnknownEndian(uint64_t const & src)
+uint64_t unknown(uint64_t const & src)
 {
 	throw Exception("Unsupported endianness detected!");
 	return 0;
 }
 
-uint64_t ntohllBigEndian(uint64_t const & src)
-{
-	return src;
-}
-
-uint64_t ntohllLittleEndian(uint64_t const & src)
-{
-	uint8_t* ptr((uint8_t*)(&src));
-
-	return
-		(uint64_t)(
-		(ptr[0] << 56) |
-		(ptr[1] << 48) |
-		(ptr[2] << 40) |
-		(ptr[3] << 32) |
-		(ptr[4] << 24) |
-		(ptr[5] << 16) |
-		(ptr[6] << 8)  |
-		(ptr[7]));
-}
-
-uint64_t ntohllUnknownEndian(uint64_t const & src)
-{
-	throw Exception("Unsupported endianness detected!");
-	return 0;
-}
-
-htonllImpl setHtonll()
+endianness setEndianness()
 {
 	switch(HOST_ORDER.value)
 	{
 		case LITTLE_ENDIAN:
-			return htonllLittleEndian;
+			return reverse;
 		break;
 
 		case BIG_ENDIAN:
-			return htonllBigEndian;
+			return same;
 		break;
 
 		default:
-			return htonllUnknownEndian;
-		break;
-	}
-}
-
-ntohllImpl setNtohll()
-{
-	switch(HOST_ORDER.value)
-	{
-		case LITTLE_ENDIAN:
-			return ntohllLittleEndian;
-		break;
-
-		case BIG_ENDIAN:
-			return ntohllBigEndian;
-		break;
-
-		default:
-			return ntohllUnknownEndian;
+			return unknown;
 		break;
 	}
 }
