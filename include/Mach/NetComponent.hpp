@@ -63,8 +63,6 @@
 namespace Mach
 {
 
-typedef uint64_t (*endianness) (uint64_t const &);
-
 /*
  * Network component
  *
@@ -83,14 +81,6 @@ class NetComponent
 		/* Error display wrapper */
 		static std::string lastError(std::string const);
 
-		/* IP-agnostic sockaddr & port getters */
-		static void * specializeAddress(sockaddr const *);
-		static unsigned short specializePort(sockaddr const *);
-
-		/* Human-readable IP and port extractors */
-		static std::string extractIP(addrinfo const *);
-		static unsigned short extractPort(addrinfo const *);
-
 		/* Properly close given socked */
 		static void closeSocket(int const);
 
@@ -100,6 +90,18 @@ class NetComponent
 		static void stopWSA();
 };
 
+/* IP-agnostic sockaddr & port getters */
+void * specializeAddress(sockaddr const *);
+unsigned short specializePort(sockaddr const *);
+
+/* Human-readable IP and port extractors */
+std::string extractIP(addrinfo const *);
+unsigned short extractPort(addrinfo const *);
+
+/* Endianness implementation function type */
+typedef uint64_t (*endianness) (uint64_t const &);
+
+/* Custom (and runtime defined) host to network byte-order translators */
 extern endianness htonll;
 extern endianness ntohll;
 
