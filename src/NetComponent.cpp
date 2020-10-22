@@ -118,7 +118,7 @@ string NetComponent::extractIP(addrinfo const * ai)
 		case AF_INET:
 			ipv4 = (sockaddr_in *)(ai->ai_addr);
 #if defined(_WIN32) || defined(_WIN64)
-			InetNtop(ai->ai_family, &(ipv4->sin_addr),
+			InetNtopA(ai->ai_family, &(ipv4->sin_addr),
 					(PSTR)resultBuffer,
 					sizeof(resultBuffer));
 #elif defined(__gnu_linux__)
@@ -132,7 +132,7 @@ string NetComponent::extractIP(addrinfo const * ai)
 		case AF_INET6:
 			ipv6 = (sockaddr_in6 *)(ai->ai_addr);
 #if defined(_WIN32) || defined(_WIN64)
-			InetNtop(ai->ai_family, &(ipv6->sin6_addr),
+			InetNtopA(ai->ai_family, &(ipv6->sin6_addr),
 				(PSTR)resultBuffer, sizeof(resultBuffer));
 #elif defined(__gnu_linux__)
 			inet_ntop(ai->ai_family, &(ipv6->sin6_addr),

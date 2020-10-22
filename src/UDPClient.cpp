@@ -71,7 +71,7 @@ void UDPClient::connectTo(string const host, unsigned short const port)
 	{
 		freeaddrinfo(remote);
 
-		throw Exception(gai_strerror(getaddrinfoError));
+		throw Exception(gai_strerrorA(getaddrinfoError));
 	}
 
 	/* Try preparing the socket */

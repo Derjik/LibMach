@@ -60,7 +60,7 @@ UDPServer::UDPServer(unsigned short const port,
 	{
 		freeaddrinfo(results);
 
-		throw Exception(gai_strerror(getaddrinfoError));
+		throw Exception(gai_strerrorA(getaddrinfoError));
 	}
 
 	/* Try binding to every resulting address info */
