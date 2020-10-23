@@ -33,7 +33,7 @@ namespace Mach
 /*
  * Defines a basic logging priority, as found in many other logging facilities
  */
-struct Priority
+typedef struct Priority
 {
 	/* Used as a threshold when deciding whether to log or not */
 	int level;
@@ -47,7 +47,7 @@ struct Priority
 	{
 		return level >= p.level;
 	}
-};
+} Priority;
 
 /*
  * Allows use of << on streams capable of receiving an unsigned integer
@@ -60,10 +60,10 @@ template <typename T> T & operator << (T & obj, Priority const & prio)
 }
 
 /* Default priorities for the Logger */
-extern struct Priority LOG_DEBUG;	/* Execution details */
-extern struct Priority LOG_INFO;	/* Notices worth reading */
-extern struct Priority LOG_WARN;	/* Safe but abnormal behaviors */
-extern struct Priority LOG_ERROR;	/* Fatal abnormal behaviors */
+extern Priority LOG_DEBUG;	/* Execution details */
+extern Priority LOG_INFO;	/* Notices worth reading */
+extern Priority LOG_WARN;	/* Safe but abnormal behaviors */
+extern Priority LOG_ERROR;	/* Fatal abnormal behaviors */
 
 /*
  * Logging facility

@@ -21,7 +21,6 @@
  */
 
 #include "../include/Mach/Exception.hpp"
-#include <codecvt>
 
 
 namespace Mach
