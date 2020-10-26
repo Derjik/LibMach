@@ -85,7 +85,7 @@ void DemoUDPClient::sendPattern(uint8_t const byte, size_t const length) const
 
 /*
  * Send an indexed stream of packets. Useful to test reception order and detect
- * packet loss, alogn with the DemoUDPServer's indexed mode.
+ * packet loss, along with the DemoUDPServer's indexed mode.
  */
 void DemoUDPClient::sendIndexes(unsigned const number,
 		unsigned const msDelay) const
