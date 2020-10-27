@@ -263,19 +263,34 @@ uint64_t same(uint64_t const & src)
  */
 uint64_t reverse(uint64_t const & src)
 {
-	uint8_t* ptr((uint8_t*)(&src));
+	uint64_t result = 0x0000000000000000;
 
-	/* Byte swap */
-	return
-		(uint64_t)(
-		(ptr[0] << 56) |
-		(ptr[1] << 48) |
-		(ptr[2] << 40) |
-		(ptr[3] << 32) |
-		(ptr[4] << 24) |
-		(ptr[5] << 16) |
-		(ptr[6] << 8)  |
-		(ptr[7]));
+	// 0xAABBCCDDEEFF1122
+	//
+	// 0x2211FFEEDDCCBBAA
+
+	result |= (src & 0x00000000000000FF)<<56;
+	result |= (src & 0x000000000000FF00)<<40;
+	result |= (src & 0x0000000000FF0000)<<24;
+	result |= (src & 0x00000000FF000000)<<8;
+	result |= (src & 0x000000FF00000000)>>8;
+	result |= (src & 0x0000FF0000000000)>>24;
+	result |= (src & 0x00FF000000000000)>>40;
+	result |= (src & 0xFF00000000000000)>>56;
+
+	return result;
+
+//	/* Byte swap */
+//	return
+//		(uint64_t)(
+//		(ptr[0] << 56) |
+//		(ptr[1] << 48) |
+//		(ptr[2] << 40) |
+//		(ptr[3] << 32) |
+//		(ptr[4] << 24) |
+//		(ptr[5] << 16) |
+//		(ptr[6] << 8)  |
+//		(ptr[7]));
 }
 
 /*
