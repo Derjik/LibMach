@@ -42,9 +42,9 @@ int main(void)
 		/* Try building a demo server with some basic parameters */
 		serv = new DemoUDPServer("log/server.log", LOG_DEBUG, 1777, ALL);
 	}
-	catch(Exception e)
+	catch(Exception * e)
 	{
-		cerr << e.message() << endl;
+		cerr << e->message() << endl;
 		exit(-1);
 	}
 

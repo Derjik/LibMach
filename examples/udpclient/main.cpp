@@ -69,9 +69,9 @@ int main(int argc, char* argv[])
 		/* Disconnect from server (=close socket) */
 		client.disconnect();
 	}
-	catch(Exception e)
+	catch(Exception * e)
 	{
-		cerr << e.message() << endl;
+		cerr << e->message() << endl;
 		exit(-1);
 	}
 

@@ -72,7 +72,7 @@ UDPServer::UDPServer(unsigned short const port,
 		{
 			bindTo(currentAddress);
 		}
-		catch(Exception e)
+		catch(Exception * e)
 		{
 			_log.error
 			<< "Failed to bind to "
@@ -80,7 +80,7 @@ UDPServer::UDPServer(unsigned short const port,
 			<< extractPort(currentAddress) << "!"
 			<< endl;
 			_log.error
-			<< "Error was: " << e.message() << "."
+			<< "Error was: " << e->message() << "."
 			<< endl;
 		}
 	}
