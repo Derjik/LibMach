@@ -298,6 +298,7 @@ uint64_t reverse(uint64_t const & src)
  */
 uint64_t unknown(uint64_t const & src)
 {
+	(void)(src);
 	throw Exception("Unsupported endianness detected!");
 	return 0;
 }

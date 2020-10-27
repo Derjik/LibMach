@@ -60,7 +60,11 @@ UDPServer::UDPServer(unsigned short const port,
 	{
 		freeaddrinfo(results);
 
+#if defined(_WIN32) || defined(_WIN64)
 		throw Exception(gai_strerrorA(getaddrinfoError));
+#elif defined(__gnu_linux__)
+		throw Exception(gai_strerror(getaddrinfoError));
+#endif
 	}
 
 	/* Try binding to every resulting address info */
