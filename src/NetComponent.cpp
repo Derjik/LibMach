@@ -237,8 +237,8 @@ unsigned short extractPort(addrinfo const * ai)
  */
 enum : uint32_t
 {
-	LITTLE_ENDIAN = 0x03020100ul,
-	BIG_ENDIAN = 0x00010203ul
+	E_LITTLE_ENDIAN = 0x03020100ul,
+	E_BIG_ENDIAN = 0x00010203ul
 };
 
 /*
@@ -296,11 +296,11 @@ endianness setEndianness()
 {
 	switch(HOST_ORDER.value)
 	{
-		case LITTLE_ENDIAN:
+		case E_LITTLE_ENDIAN:
 			return reverse;
 		break;
 
-		case BIG_ENDIAN:
+		case E_BIG_ENDIAN:
 			return same;
 		break;
 
