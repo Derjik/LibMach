@@ -46,7 +46,7 @@ string NetComponent::lastError(string const call)
 
         int lastError = WSAGetLastError();
 		str << call << ": " << lastError
-			<< " (please contact <julien.laurent@engineer.com>)";
+			<< " (check MSDN for more information)";
 
 #elif defined(__gnu_linux__)
 

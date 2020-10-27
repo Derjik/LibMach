@@ -224,7 +224,7 @@ void UDPServer::listener(pair<int, addrinfo> const socket)
 	int length(0);
 
 #if defined(__gnu_linux__)
-	/* Rename thread (Linux-only feature, 'coz Windows blows) */
+	/* Rename thread (Linux-only feature) */
 	switch(socket.second.ai_family)
 	{
 		/* IPv4 */
